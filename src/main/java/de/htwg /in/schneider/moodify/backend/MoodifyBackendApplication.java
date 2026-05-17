@@ -9,5 +9,5 @@ public class MoodifyBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MoodifyBackendApplication.class, args);
 	}
-
+	
 }
