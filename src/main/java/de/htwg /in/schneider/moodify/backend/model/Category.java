@@ -5,7 +5,12 @@ public enum Category {
     GESUNDHEIT("Gesundheit"),
     KONZENTRATION("Konzentration"),
     ABLENKUNG("Ablenkung"),
-    ENTSPANNUNG("Entspannung");
+    MOTIVATION("Motivation"),
+    ENTSPANNUNG("Entspannung"),
+    ZIELE("Ziele"),
+    KARRIERE("Karriere"),
+    SONSTIGE("Sonstige"),
+    REISE("Reise");
 
 
     private final String name;
