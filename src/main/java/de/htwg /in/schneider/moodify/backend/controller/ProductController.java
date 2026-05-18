@@ -2,11 +2,13 @@ package de.htwg.in.schneider.moodify.backend.controller;
 
 import de.htwg.in.schneider.moodify.backend.model.Product;
 import de.htwg.in.schneider.moodify.backend.model.Category;
+import de.htwg.in.schneider.moodify.backend.repository.ProductRepository;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,23 +18,20 @@ import java.util.List;
 @RequestMapping("/api/product")
 public class ProductController {
 
-    private final List<Product> challenges = new ArrayList<>();
+    @Autowired
+    private final ProductRepository repository;
 
-    public ProductController() {
-
-        Category health = new Category("Health");
-
-        challenges.add(new Product("Drink Water", "Trinke heute 2 Liter Wasser", health));
+    public ProductController(ProductRepository repository) {
+        this.repository = repository;
     }
 
     @GetMapping
     public List<Product> getProducts() {
-        return challenges;
+        return repository.findAll();
     }
 
     @PostMapping
-    public Product addProducts(@RequestBody Product product) {
-    challenges.add(product);
-    return product;
-}
+    public Product addProduct(@RequestBody Product product) {
+        return repository.save(product);
+    }
 }

@@ -1,13 +1,16 @@
 package de.htwg.in.schneider.moodify.backend.model;
 
-public class Category {
+public enum Category {
 
-    private String name;
+    GESUNDHEIT("Gesundheit"),
+    KONZENTRATION("Konzentration"),
+    ABLENKUNG("Ablenkung"),
+    ENTSPANNUNG("Entspannung");
 
-    public Category() {
-    }
 
-    public Category(String name) {
+    private final String name;
+
+    Category(String name) {
         this.name = name;
     }
 
@@ -15,8 +18,5 @@ public class Category {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }
 
