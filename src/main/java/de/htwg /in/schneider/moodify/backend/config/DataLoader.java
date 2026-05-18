@@ -6,11 +6,15 @@ import org.springframework.context.annotation.Configuration;
 
 import de.htwg.in.schneider.moodify.backend.model.Category;
 import de.htwg.in.schneider.moodify.backend.model.Product;
+import de.htwg.in.schneider.moodify.backend.model.Visionboard;
 import de.htwg.in.schneider.moodify.backend.repository.ProductRepository;
+import de.htwg.in.schneider.moodify.backend.repository.VisionboardRepository;
 
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.time.LocalDateTime;
 
 
 @Configuration
@@ -19,19 +23,19 @@ public class DataLoader{
     private static final Logger LOGGER = LoggerFactory.getLogger(DataLoader.class);
 
     @Bean
-    public CommandLineRunner loadData(ProductRepository repository) {
+    public CommandLineRunner loadData(ProductRepository repository, VisionboardRepository visionboardRepository) {
 
         return args -> {
             if (repository.count() == 0) { 
                 LOGGER.info("Database is empty. Loading initial data...");
-                loadInitialData(repository);
+                loadInitialData(repository, visionboardRepository);
             } else {
                 LOGGER.info("Database already contains data. Skipping data loading.");
             }
         };
     }
 
-    private void loadInitialData(ProductRepository productRepository) {
+    private void loadInitialData(ProductRepository productRepository, VisionboardRepository visionboardRepository) {
 
         Product waterChallenge = new Product();
         waterChallenge.setTitle("Wasser trinken");
@@ -48,6 +52,25 @@ public class DataLoader{
 
 
         productRepository.saveAll(Arrays.asList(waterChallenge, pomodoro));
+
+
+        Visionboard vs1 = new Visionboard();
+        vs1.setTitle("Reise2026");
+        vs1.setCreatedAt(LocalDateTime.now());
+        vs1.setCategory(Category.REISE);
+        LOGGER.info("Initial data loaded successfully");
+
+
+        Visionboard vs2 = new Visionboard();
+        vs2.setTitle("Ziele2026");
+        vs2.setCreatedAt(LocalDateTime.now());
+        vs2.setCategory(Category.ZIELE);
+        LOGGER.info("Initial data loaded successfully");
+
+
+        visionboardRepository.saveAll(Arrays.asList(vs1, vs2));
+
+
     }
 
 }

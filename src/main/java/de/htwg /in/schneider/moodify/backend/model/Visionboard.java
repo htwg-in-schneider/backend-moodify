@@ -7,25 +7,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
+import java.time.LocalDateTime;
+
+
 @Entity
-public class Product {
+public class Visionboard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
     private String title;
-    private String description;
+    private LocalDateTime CreatedAt;
 
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    public Product() {
+    public Visionboard() {
     }
 
-    public Product(Long ID, String title, String description, Category category) {
+    public Visionboard(Long ID, String title, LocalDateTime CreatedAt, Category category) {
         this.ID = ID;
         this.title = title;
-        this.description = description;
+        this.CreatedAt = CreatedAt;
         this.category = category;
     }
 
@@ -38,8 +41,8 @@ public class Product {
         return title;
     }
 
-    public String getDescription() {
-        return description;
+    public LocalDateTime getCreatedAt() {
+        return CreatedAt;
     }
 
     public void setID(Long ID) {
@@ -50,8 +53,8 @@ public class Product {
         this.title = title;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCreatedAt(LocalDateTime CreatedAt) {
+        this.CreatedAt = CreatedAt;
     }
 
     public Category getCategory() {
@@ -66,8 +69,8 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return ID != null && ID.equals(product.ID);
+        Visionboard visionboard = (Visionboard) o;
+        return ID != null && ID.equals(visionboard.ID);
     }
 
     @Override
@@ -81,7 +84,7 @@ public class Product {
         return "Product{" +
             "ID=" + ID +
             ", title='" + title + '\'' +
-            ", description='" + description + '\'' +
+            ", created at='" + CreatedAt + '\'' +
             ", category=" + category +
             '}';
     }
