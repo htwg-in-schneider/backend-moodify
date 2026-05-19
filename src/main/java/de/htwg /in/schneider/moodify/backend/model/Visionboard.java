@@ -6,8 +6,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.ElementCollection;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -22,14 +26,18 @@ public class Visionboard {
     @Enumerated(EnumType.STRING)
     private Category category;
 
+    @ElementCollection
+    private List<String> imageUrls = new ArrayList<>();
+
     public Visionboard() {
     }
 
-    public Visionboard(Long ID, String title, LocalDateTime CreatedAt, Category category) {
+    public Visionboard(Long ID, String title, LocalDateTime CreatedAt, Category category, List<String> imageUrls) {
         this.ID = ID;
         this.title = title;
         this.CreatedAt = CreatedAt;
         this.category = category;
+        this.imageUrls = imageUrls;
     }
 
 
@@ -43,6 +51,10 @@ public class Visionboard {
 
     public LocalDateTime getCreatedAt() {
         return CreatedAt;
+    }
+
+    public List<String> getImageUrls(){
+        return imageUrls;
     }
 
     public void setID(Long ID) {
@@ -65,6 +77,10 @@ public class Visionboard {
         this.category = category;
     }
 
+    public void setImageUrls(List<String> imageUrls){
+        this.imageUrls = imageUrls;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,7 +101,8 @@ public class Visionboard {
             "ID=" + ID +
             ", title='" + title + '\'' +
             ", created at='" + CreatedAt + '\'' +
-            ", category=" + category +
+            ", category=" + category + '\'' +
+            ", imageUrls=" + imageUrls +
             '}';
     }
 

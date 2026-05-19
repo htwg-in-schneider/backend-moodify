@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 
 
+
 @Configuration
 public class DataLoader{
     
@@ -58,6 +59,8 @@ public class DataLoader{
         vs1.setTitle("Reise2026");
         vs1.setCreatedAt(LocalDateTime.now());
         vs1.setCategory(Category.REISE);
+        vs1.setImageUrls(Arrays.asList(
+        "/images/beach.jpg", "/images/plane.jpg", "/images/hotel.jpg"));
         LOGGER.info("Initial data loaded successfully");
 
 
@@ -65,6 +68,8 @@ public class DataLoader{
         vs2.setTitle("Ziele2026");
         vs2.setCreatedAt(LocalDateTime.now());
         vs2.setCategory(Category.ZIELE);
+        vs2.setImageUrls(Arrays.asList(
+        "/images/job.jpg", "/images/future.jpg", "/images/family.jpg"));
         LOGGER.info("Initial data loaded successfully");
 
 

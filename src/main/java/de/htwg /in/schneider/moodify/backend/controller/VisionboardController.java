@@ -34,4 +34,5 @@ public class VisionboardController {
     public Visionboard addVisionboard(@RequestBody Visionboard visionboard) {
         return repository.save(visionboard);
     }
+    
 }
