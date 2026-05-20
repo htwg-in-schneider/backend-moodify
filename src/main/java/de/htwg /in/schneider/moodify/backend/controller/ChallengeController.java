@@ -1,14 +1,13 @@
 package de.htwg.in.schneider.moodify.backend.controller;
 
-import de.htwg.in.schneider.moodify.backend.model.Product;
+import de.htwg.in.schneider.moodify.backend.model.Challenge;
 import de.htwg.in.schneider.moodify.backend.model.Category;
-import de.htwg.in.schneider.moodify.backend.repository.ProductRepository;
+import de.htwg.in.schneider.moodify.backend.repository.ChallengeRepository;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -18,18 +17,17 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/product")
-public class ProductController {
+@RequestMapping("/api/challenge")
+public class ChallengeController {
 
-    @Autowired
-    private final ProductRepository repository;
+    private final ChallengeRepository repository;
 
-    public ProductController(ProductRepository repository) {
+    public ChallengeController(ChallengeRepository repository) {
         this.repository = repository;
     }
 
     @GetMapping
-    public List<Product> getChallenges(
+    public List<Challenge> getChallenges(
         @RequestParam(required = false) String name,
         @RequestParam(required = false) Category category) {
 
@@ -46,14 +44,14 @@ public class ProductController {
 
 
     @PostMapping
-    public Product createChallenge(@RequestBody Product challenge) {
+    public Challenge createChallenge(@RequestBody Challenge challenge) {
 
 
        if (challenge.getID() != null) {
         challenge.setID(null);
        }
 
-       Product newChallenge = repository.save(challenge);
+       Challenge newChallenge = repository.save(challenge);
 
        return newChallenge;
 
@@ -61,24 +59,25 @@ public class ProductController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateChallenge(
+    public ResponseEntity<Challenge> updateChallenge(
 
         @PathVariable Long id,
-        @RequestBody Product challengeDetails) {
+        @RequestBody Challenge challengeDetails) {
 
-        Optional<Product> opt = repository.findById(id);
+        Optional<Challenge> opt = repository.findById(id);
 
         if (!opt.isPresent()) {
           return ResponseEntity.notFound().build();
         }
 
-        Product challenge = opt.get();
+        Challenge challenge = opt.get();
 
         challenge.setTitle(challengeDetails.getTitle());
         challenge.setCategory(challengeDetails.getCategory());
         challenge.setDescription(challengeDetails.getDescription());
+        challenge.setSchwierigkeitsgrad(challengeDetails.getSchwierigkeitsgrad());
 
-        Product updatedChallenge = repository.save(challenge);
+        Challenge updatedChallenge = repository.save(challenge);
 
         return ResponseEntity.ok(updatedChallenge);
 
@@ -88,7 +87,7 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteChallenge(@PathVariable Long id) {
 
-       Optional<Product> opt = repository.findById(id);
+       Optional<Challenge> opt = repository.findById(id);
 
        if (!opt.isPresent()) {
           return ResponseEntity.notFound().build();
@@ -101,9 +100,9 @@ public class ProductController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getChallengeById(@PathVariable Long id) {
+    public ResponseEntity<Challenge> getChallengeById(@PathVariable Long id) {
 
-      Optional<Product> opt = repository.findById(id);
+      Optional<Challenge> opt = repository.findById(id);
 
       if (opt.isPresent()) {
           return ResponseEntity.ok(opt.get());

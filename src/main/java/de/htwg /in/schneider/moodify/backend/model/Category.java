@@ -10,7 +10,8 @@ public enum Category {
     ZIELE("Ziele"),
     KARRIERE("Karriere"),
     SONSTIGE("Sonstige"),
-    REISE("Reise");
+    REISE("Reise"),
+    FOKUS("Fokus");
 
 
     private final String name;

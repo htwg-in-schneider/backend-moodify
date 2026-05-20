@@ -8,24 +8,26 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 @Entity
-public class Product {
+public class Challenge {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
     private String title;
     private String description;
+    private String schwierigkeitsgrad;
 
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    public Product() {
+    public Challenge() {
     }
 
-    public Product(Long ID, String title, String description, Category category) {
+    public Challenge(Long ID, String title, String description, String schwierigkeitsgrad, Category category) {
         this.ID = ID;
         this.title = title;
         this.description = description;
+        this.schwierigkeitsgrad = schwierigkeitsgrad;
         this.category = category;
     }
 
@@ -54,6 +56,14 @@ public class Product {
         this.description = description;
     }
 
+    public String getSchwierigkeitsgrad() {
+        return schwierigkeitsgrad;
+    }
+
+    public void setSchwierigkeitsgrad(String schwierigkeitsgrad) {
+        this.schwierigkeitsgrad = schwierigkeitsgrad;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -66,8 +76,8 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return ID != null && ID.equals(product.ID);
+        Challenge challenge = (Challenge) o;
+        return ID != null && ID.equals(challenge.ID);
     }
 
     @Override
@@ -78,10 +88,11 @@ public class Product {
     @Override
     public String toString() {
 
-        return "Product{" +
+        return "Challenge{" +
             "ID=" + ID +
             ", title='" + title + '\'' +
             ", description='" + description + '\'' +
+            ", schwierigkeitsgrad='" + schwierigkeitsgrad + '\'' +
             ", category=" + category +
             '}';
     }
