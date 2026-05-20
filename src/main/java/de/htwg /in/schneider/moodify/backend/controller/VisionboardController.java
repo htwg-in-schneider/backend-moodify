@@ -63,7 +63,7 @@ public class VisionboardController {
         vs.setTitle(visionboardDetails.getTitle());
         vs.setCategory(visionboardDetails.getCategory());
         vs.setCreatedAt(visionboardDetails.getCreatedAt());
-        vs.setImageUrls(visionboardDetails.getImageUrls());
+        vs.setImages(visionboardDetails.getImages());
 
         Visionboard updatedVisionboard = repository.save(vs);
 

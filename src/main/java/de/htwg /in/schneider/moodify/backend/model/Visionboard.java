@@ -6,10 +6,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.ElementCollection;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,19 +27,20 @@ public class Visionboard {
 
     @Enumerated(EnumType.STRING)
     private Category category;
-
-    @ElementCollection
-    private List<String> imageUrls = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "visionboard", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("visionboard")
+    private List<VisionboardImages> images = new ArrayList<>();
 
     public Visionboard() {
     }
 
-    public Visionboard(Long ID, String title, LocalDateTime CreatedAt, Category category, List<String> imageUrls) {
-        this.ID = ID;
-        this.title = title;
-        this.CreatedAt = CreatedAt;
-        this.category = category;
-        this.imageUrls = imageUrls;
+    public Visionboard(Long ID, String title, LocalDateTime CreatedAt, Category category, List<VisionboardImages> images) {
+    this.ID = ID;
+    this.title = title;
+    this.CreatedAt = CreatedAt;
+    this.category = category;
+    this.images = images;
     }
 
 
@@ -53,8 +56,8 @@ public class Visionboard {
         return CreatedAt;
     }
 
-    public List<String> getImageUrls(){
-        return imageUrls;
+    public List<VisionboardImages> getImages() {
+        return images;
     }
 
     public void setID(Long ID) {
@@ -77,9 +80,12 @@ public class Visionboard {
         this.category = category;
     }
 
-    public void setImageUrls(List<String> imageUrls){
-        this.imageUrls = imageUrls;
+
+    public void setImages(List<VisionboardImages> images) {
+        this.images = images;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -94,16 +100,17 @@ public class Visionboard {
         return ID != null ? ID.hashCode() : 0;
     }
 
-    @Override
-    public String toString() {
 
-        return "Product{" +
+@Override
+public String toString() {
+
+    return "Visionboard{" +
             "ID=" + ID +
             ", title='" + title + '\'' +
-            ", created at='" + CreatedAt + '\'' +
-            ", category=" + category + '\'' +
-            ", imageUrls=" + imageUrls +
+            ", createdAt=" + CreatedAt +
+            ", category=" + category +
+            ", images=" + images +
             '}';
-    }
+}
 
 }
