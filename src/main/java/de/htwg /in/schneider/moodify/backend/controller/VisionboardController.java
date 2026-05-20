@@ -27,10 +27,26 @@ public class VisionboardController {
         this.repository = repository;
     }
 
+
     @GetMapping
-    public List<Visionboard> getVisionboard() {
+    public List<Visionboard> getVisionboard(
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) Category category) {
+
+    if (name != null && category != null) {
+        return repository.findByTitleContainingIgnoreCaseAndCategory(name, category);
+
+    } else if (name != null) {
+        return repository.findByTitleContainingIgnoreCase(name);
+
+    } else if (category != null) {
+        return repository.findByCategory(category);
+
+    } else {
         return repository.findAll();
     }
+    }
+
 
     @PostMapping
     public Visionboard createVisionboard(@RequestBody Visionboard visionboard) {
