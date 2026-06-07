@@ -13,7 +13,7 @@ public class Challenge {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String title;
+    private String name;
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -25,9 +25,9 @@ public class Challenge {
     public Challenge() {
     }
 
-    public Challenge(Long id, String title, String description, Difficulty difficulty, Category category) {
+    public Challenge(Long id, String name, String description, Difficulty difficulty, Category category) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.description = description;
         this.difficulty = difficulty;
         this.category = category;
@@ -38,8 +38,8 @@ public class Challenge {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {
@@ -50,8 +50,8 @@ public class Challenge {
         this.id = id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescription(String description) {
@@ -92,7 +92,7 @@ public class Challenge {
 
         return "Challenge{" +
             "id=" + id +
-            ", title='" + title + '\'' +
+            ", name='" + name + '\'' +
             ", description='" + description + '\'' +
             ", difficulty='" + difficulty + '\'' +
             ", category=" + category +
