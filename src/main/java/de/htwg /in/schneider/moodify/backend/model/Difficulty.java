@@ -1,6 +1,6 @@
 package de.htwg.in.schneider.moodify.backend.model;
 
-public enum Schwierigkeitsgrad {
+public enum Difficulty {
 
     EASY("easy"),
     MITTEL("mittel"),
@@ -9,7 +9,7 @@ public enum Schwierigkeitsgrad {
 
     private final String name;
 
-    Schwierigkeitsgrad(String name) {
+    Difficulty(String name) {
         this.name = name;
     }
 

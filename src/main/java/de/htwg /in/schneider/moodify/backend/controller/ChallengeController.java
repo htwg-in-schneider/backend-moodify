@@ -75,7 +75,7 @@ public class ChallengeController {
         challenge.setTitle(challengeDetails.getTitle());
         challenge.setCategory(challengeDetails.getCategory());
         challenge.setDescription(challengeDetails.getDescription());
-        challenge.setSchwierigkeitsgrad(challengeDetails.getSchwierigkeitsgrad());
+        challenge.setDifficulty(challengeDetails.getDifficulty());
 
         Challenge updatedChallenge = repository.save(challenge);
 

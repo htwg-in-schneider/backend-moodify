@@ -17,7 +17,7 @@ public class Challenge {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private Schwierigkeitsgrad schwierigkeitsgrad;
+    private Difficulty difficulty;
 
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -25,11 +25,11 @@ public class Challenge {
     public Challenge() {
     }
 
-    public Challenge(Long id, String title, String description, Schwierigkeitsgrad schwierigkeitsgrad, Category category) {
+    public Challenge(Long id, String title, String description, Difficulty difficulty, Category category) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.schwierigkeitsgrad = schwierigkeitsgrad;
+        this.difficulty = difficulty;
         this.category = category;
     }
 
@@ -58,13 +58,13 @@ public class Challenge {
         this.description = description;
     }
 
-    public Schwierigkeitsgrad getSchwierigkeitsgrad() {
-        return schwierigkeitsgrad;
+    public Difficulty getDifficulty() {
+        return difficulty;
     }
 
-    public void setSchwierigkeitsgrad(Schwierigkeitsgrad schwierigkeitsgrad) {
-        this.schwierigkeitsgrad = schwierigkeitsgrad;
-    }
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    } 
 
     public Category getCategory() {
         return category;
@@ -94,7 +94,7 @@ public class Challenge {
             "id=" + id +
             ", title='" + title + '\'' +
             ", description='" + description + '\'' +
-            ", schwierigkeitsgrad='" + schwierigkeitsgrad + '\'' +
+            ", difficulty='" + difficulty + '\'' +
             ", category=" + category +
             '}';
     }
