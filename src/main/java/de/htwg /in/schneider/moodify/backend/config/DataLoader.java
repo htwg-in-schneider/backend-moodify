@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import de.htwg.in.schneider.moodify.backend.model.Category;
+import de.htwg.in.schneider.moodify.backend.model.Schwierigkeitsgrad;
 import de.htwg.in.schneider.moodify.backend.model.Challenge;
 import de.htwg.in.schneider.moodify.backend.model.Visionboard;
 import de.htwg.in.schneider.moodify.backend.repository.ChallengeRepository;
@@ -44,7 +45,7 @@ public class DataLoader{
         Challenge waterChallenge = new Challenge();
         waterChallenge.setTitle("Wasser trinken");
         waterChallenge.setDescription("Trinke heute mindestens 2L Wasser über den gesamten Tag.");
-        waterChallenge.setSchwierigkeitsgrad("mittel");
+        waterChallenge.setSchwierigkeitsgrad(Schwierigkeitsgrad.MITTEL);
         waterChallenge.setCategory(Category.GESUNDHEIT);
         LOGGER.info("Initial data loaded successfully");
 
@@ -52,7 +53,7 @@ public class DataLoader{
         Challenge pomodoro = new Challenge();
         pomodoro.setTitle("Pomodoro Fokus");
         pomodoro.setDescription("Arbeite 25 Minuten konzentriert an einer Aufgabe ohne Ablenkung.");
-        pomodoro.setSchwierigkeitsgrad("schwer");
+        pomodoro.setSchwierigkeitsgrad(Schwierigkeitsgrad.EASY);
         pomodoro.setCategory(Category.KONZENTRATION);
         LOGGER.info("Initial data loaded successfully");
 
