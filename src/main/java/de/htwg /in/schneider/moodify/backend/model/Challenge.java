@@ -82,14 +82,14 @@ public class Challenge {
 
     @Override
     public int hashCode() {
-        return ID != null ? ID.hashCode() : 0;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
     public String toString() {
 
         return "Challenge{" +
-            "ID=" + id +
+            "id=" + id +
             ", title='" + title + '\'' +
             ", description='" + description + '\'' +
             ", schwierigkeitsgrad='" + schwierigkeitsgrad + '\'' +

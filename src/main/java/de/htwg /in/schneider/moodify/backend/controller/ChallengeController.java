@@ -47,8 +47,8 @@ public class ChallengeController {
     public Challenge createChallenge(@RequestBody Challenge challenge) {
 
 
-       if (challenge.getID() != null) {
-        challenge.setID(null);
+       if (challenge.getid() != null) {
+        challenge.setid(null);
        }
 
        Challenge newChallenge = repository.save(challenge);
