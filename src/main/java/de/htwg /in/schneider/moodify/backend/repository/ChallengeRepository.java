@@ -9,10 +9,10 @@ import de.htwg.in.schneider.moodify.backend.model.Challenge;
 
 public interface ChallengeRepository extends JpaRepository <Challenge, Long> {
 
-List<Challenge> findByNameContainingIgnoreCase(String name);
+List<Challenge> findByTitleContainingIgnoreCase(String title);
 
 List<Challenge> findByCategory(Category category);
 
-List<Challenge> findByNameContainingIgnoreCaseAndCategory(String name, Category category);
+List<Challenge> findByTitleContainingIgnoreCaseAndCategory(String title, Category category);
 
 }

@@ -43,7 +43,7 @@ public class DataLoader{
     private void loadInitialData(ChallengeRepository challengeRepository, VisionboardRepository visionboardRepository) {
 
         Challenge waterChallenge = new Challenge();
-        waterChallenge.setName("Wasser trinken");
+        waterChallenge.setTitle("Wasser trinken");
         waterChallenge.setDescription("Trinke heute mindestens 2L Wasser über den gesamten Tag.");
         waterChallenge.setDifficulty(Difficulty.MITTEL);
         waterChallenge.setCategory(Category.GESUNDHEIT);
@@ -51,7 +51,7 @@ public class DataLoader{
 
 
         Challenge pomodoro = new Challenge();
-        pomodoro.setName("Pomodoro Fokus");
+        pomodoro.setTitle("Pomodoro Fokus");
         pomodoro.setDescription("Arbeite 25 Minuten konzentriert an einer Aufgabe ohne Ablenkung.");
         pomodoro.setDifficulty(Difficulty.MITTEL);
         pomodoro.setCategory(Category.KONZENTRATION);

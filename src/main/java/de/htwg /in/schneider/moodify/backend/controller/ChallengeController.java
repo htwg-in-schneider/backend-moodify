@@ -32,9 +32,9 @@ public class ChallengeController {
         @RequestParam(required = false) Category category) {
 
     if (name != null && category != null) {
-        return repository.findByNameContainingIgnoreCaseAndCategory(name, category);
+        return repository.findByTitleContainingIgnoreCaseAndCategory(name, category);
     } else if (name != null) {
-        return repository.findByNameContainingIgnoreCase(name);
+        return repository.findByTitleContainingIgnoreCase(name);
     } else if (category != null) {
         return repository.findByCategory(category);
     } else {
@@ -72,7 +72,7 @@ public class ChallengeController {
 
         Challenge challenge = opt.get();
 
-        challenge.setName(challengeDetails.getName());
+        challenge.setTitle(challengeDetails.getTitle());
         challenge.setCategory(challengeDetails.getCategory());
         challenge.setDescription(challengeDetails.getDescription());
         challenge.setDifficulty(challengeDetails.getDifficulty());
