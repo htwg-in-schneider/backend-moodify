@@ -64,7 +64,7 @@ public class DataLoader{
         Visionboard vs1 = new Visionboard();
         vs1.setTitle("Reise2026");
         vs1.setCreatedAt(LocalDateTime.now());
-        vs1.setCategory(Category.REISE);
+        vs1.setCategory(Category.ABLENKUNG);
 
         VisionboardImages img1 = new VisionboardImages();
         img1.setImageUrl("/images/beach.jpg");
@@ -97,7 +97,7 @@ public class DataLoader{
         Visionboard vs2 = new Visionboard();
         vs2.setTitle("Ziele2026");
         vs2.setCreatedAt(LocalDateTime.now());
-        vs2.setCategory(Category.ZIELE);
+        vs2.setCategory(Category.ABLENKUNG);
 
         VisionboardImages img4 = new VisionboardImages();
         img4.setImageUrl("/images/future.jpg");
