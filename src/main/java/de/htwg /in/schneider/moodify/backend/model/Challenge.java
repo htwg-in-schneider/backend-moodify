@@ -12,7 +12,7 @@ public class Challenge {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ID;
+    private Long id;
     private String title;
     private String description;
     private String schwierigkeitsgrad;
@@ -23,8 +23,8 @@ public class Challenge {
     public Challenge() {
     }
 
-    public Challenge(Long ID, String title, String description, String schwierigkeitsgrad, Category category) {
-        this.ID = ID;
+    public Challenge(Long id, String title, String description, String schwierigkeitsgrad, Category category) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.schwierigkeitsgrad = schwierigkeitsgrad;
@@ -32,8 +32,8 @@ public class Challenge {
     }
 
 
-    public Long getID() {
-        return ID;
+    public Long getid() {
+        return id;
     }
 
     public String getTitle() {
@@ -44,8 +44,8 @@ public class Challenge {
         return description;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setid(Long id) {
+        this.id = id;
     }
 
     public void setTitle(String title) {
@@ -77,7 +77,7 @@ public class Challenge {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Challenge challenge = (Challenge) o;
-        return ID != null && ID.equals(challenge.ID);
+        return id != null && id.equals(challenge.id);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Challenge {
     public String toString() {
 
         return "Challenge{" +
-            "ID=" + ID +
+            "ID=" + id +
             ", title='" + title + '\'' +
             ", description='" + description + '\'' +
             ", schwierigkeitsgrad='" + schwierigkeitsgrad + '\'' +
