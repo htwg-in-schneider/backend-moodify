@@ -46,7 +46,7 @@ public class DataLoader{
         waterChallenge.setTitle("Wasser trinken");
         waterChallenge.setDescription("Trinke heute mindestens 2L Wasser über den gesamten Tag.");
         waterChallenge.setDifficulty(Difficulty.MITTEL);
-        waterChallenge.setCategory(Category.GESUNDHEIT);
+        waterChallenge.setCategory(Category.MOTIVATION);
         LOGGER.info("Initial data loaded successfully");
 
 
@@ -54,7 +54,7 @@ public class DataLoader{
         pomodoro.setTitle("Pomodoro Fokus");
         pomodoro.setDescription("Arbeite 25 Minuten konzentriert an einer Aufgabe ohne Ablenkung.");
         pomodoro.setDifficulty(Difficulty.MITTEL);
-        pomodoro.setCategory(Category.KONZENTRATION);
+        pomodoro.setCategory(Category.MOTIVATION);
         LOGGER.info("Initial data loaded successfully");
 
 
@@ -64,7 +64,7 @@ public class DataLoader{
         Visionboard vs1 = new Visionboard();
         vs1.setTitle("Reise2026");
         vs1.setCreatedAt(LocalDateTime.now());
-        vs1.setCategory(Category.ABLENKUNG);
+        vs1.setCategory(Category.MOTIVATION);
 
         VisionboardImages img1 = new VisionboardImages();
         img1.setImageUrl("/images/beach.jpg");
