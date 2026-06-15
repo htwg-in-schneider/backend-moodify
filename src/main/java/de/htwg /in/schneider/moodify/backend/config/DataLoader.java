@@ -5,21 +5,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import de.htwg.in.schneider.moodify.backend.model.Category;
+import de.htwg.in.schneider.moodify.backend.model.User;
+import de.htwg.in.schneider.moodify.backend.model.Role;
 import de.htwg.in.schneider.moodify.backend.model.Difficulty;
 import de.htwg.in.schneider.moodify.backend.model.Challenge;
 import de.htwg.in.schneider.moodify.backend.model.Visionboard;
 import de.htwg.in.schneider.moodify.backend.repository.ChallengeRepository;
 import de.htwg.in.schneider.moodify.backend.repository.VisionboardRepository;
 import de.htwg.in.schneider.moodify.backend.repository.VisionboardImagesRepository;
+import de.htwg.in.schneider.moodify.backend.repository.UserRepository;
 import de.htwg.in.schneider.moodify.backend.model.VisionboardImages;
-import java.util.List;
 
+import java.util.List;
 import java.util.Arrays;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.LocalDateTime;
-
 
 
 @Configuration
@@ -28,9 +30,12 @@ public class DataLoader{
     private static final Logger LOGGER = LoggerFactory.getLogger(DataLoader.class);
 
     @Bean
-    public CommandLineRunner loadData(ChallengeRepository repository, VisionboardRepository visionboardRepository) {
+    public CommandLineRunner loadData(ChallengeRepository repository, VisionboardRepository visionboardRepository, UserRepository userRepository) {
 
         return args -> {
+
+            loadInitialUsers(userRepository);
+            
             if (repository.count() == 0) { 
                 LOGGER.info("Database is empty. Loading initial data...");
                 loadInitialData(repository, visionboardRepository);
@@ -105,7 +110,7 @@ public class DataLoader{
         img4.setYPosition(40);
         img4.setWidth(200);
         img4.setHeight(150);
-        img4.setVisionboard(vs1);
+        img4.setVisionboard(vs2);
 
         VisionboardImages img5 = new VisionboardImages();
         img5.setImageUrl("/images/job.jpg");
@@ -113,7 +118,7 @@ public class DataLoader{
         img5.setYPosition(80);
         img5.setWidth(180);
         img5.setHeight(120);
-        img5.setVisionboard(vs1);
+        img5.setVisionboard(vs2);
 
         VisionboardImages img6 = new VisionboardImages();
         img6.setImageUrl("/images/time.jpg");
@@ -121,7 +126,7 @@ public class DataLoader{
         img6.setYPosition(250);
         img6.setWidth(220);
         img6.setHeight(160);
-        img6.setVisionboard(vs1);
+        img6.setVisionboard(vs2);
 
         vs2.setImages(Arrays.asList(img4, img5, img6));
         LOGGER.info("Initial data loaded successfully");
@@ -130,6 +135,38 @@ public class DataLoader{
         visionboardRepository.saveAll(Arrays.asList(vs1, vs2));
 
 
+    
+
+    }
+
+    private void loadInitialUsers(UserRepository userRepository) {
+
+        upsertUser(userRepository, "kardln12@icloud.com", "kardln12@icloud.com", "Kardelen2004", "auth0|6a287d49f70895fb97028c48", Role.ADMIN); 
+        upsertUser(userRepository, "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "Karege21", "auth0|6a288b314bd6301a73f57805", Role.USER);
+        }
+
+
+        private void upsertUser(UserRepository userRepository, String username, String email, String password, String oauthId, Role role) {
+        Optional<User> existing = userRepository.findByEmail(email);
+        if (existing.isPresent()) {
+            User u = existing.get();
+            u.setUsername(username);
+            u.setEmail(email);
+            u.setPassword(password);
+            u.setOauthId(oauthId);
+            u.setRole(role);
+            userRepository.save(u);
+            LOGGER.info("Updated existing {} user with email={}", role, email);
+        } else {
+            User u1 = new User();
+            u1.setUsername(username);
+            u1.setEmail(email);
+            u1.setPassword(password);
+            u1.setOauthId(oauthId);
+            u1.setRole(role);
+            userRepository.save(u1);
+            LOGGER.info("Created new {} user with email={}", role, email);
+        }
     }
 
 }
