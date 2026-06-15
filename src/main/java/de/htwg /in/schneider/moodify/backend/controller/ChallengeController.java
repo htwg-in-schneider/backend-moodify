@@ -28,13 +28,13 @@ public class ChallengeController {
 
     @GetMapping
     public List<Challenge> getChallenges(
-        @RequestParam(required = false) String name,
+        @RequestParam(required = false) String title,
         @RequestParam(required = false) Category category) {
 
-    if (name != null && category != null) {
-        return repository.findByTitleContainingIgnoreCaseAndCategory(name, category);
-    } else if (name != null) {
-        return repository.findByTitleContainingIgnoreCase(name);
+    if (title != null && category != null) {
+        return repository.findByTitleContainingIgnoreCaseAndCategory(title, category);
+    } else if (title != null) {
+        return repository.findByTitleContainingIgnoreCase(title);
     } else if (category != null) {
         return repository.findByCategory(category);
     } else {
