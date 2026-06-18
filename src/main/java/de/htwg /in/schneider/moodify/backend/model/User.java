@@ -21,6 +21,7 @@ public class User {
     private String email;
     private String password;
     private String oauthId;
+    private String address;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -29,12 +30,13 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String email, String password,String oauthId, Role role) {
+    public User(Long id, String username, String email, String password,String oauthId, String address, Role role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.oauthId = oauthId;
+        this.address = address;
         this.role = role;
        
     }
@@ -47,6 +49,14 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    public String getAddress() {
+    return address;
+}
+
+public void setAddress(String address) {
+    this.address = address;
+}
 
     public void setid(Long id) {
         this.id = id;

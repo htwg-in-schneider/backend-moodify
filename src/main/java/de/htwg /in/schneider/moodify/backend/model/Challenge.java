@@ -6,6 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 public class Challenge {
@@ -72,6 +77,18 @@ public class Challenge {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @OneToMany(mappedBy = "challenge", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("challenge")
+    private List<Review> reviews = new ArrayList<>();
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     @Override
