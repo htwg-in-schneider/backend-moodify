@@ -3,7 +3,6 @@ package de.htwg.in.schneider.moodify.backend.controller;
 import de.htwg.in.schneider.moodify.backend.model.VisionboardImages;
 import de.htwg.in.schneider.moodify.backend.repository.VisionboardImagesRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,6 @@ import java.util.Optional;
 @RequestMapping("/api/image")
 public class VisionboardImagesController {
 
-    @Autowired
     private final VisionboardImagesRepository repository;
 
     public VisionboardImagesController(VisionboardImagesRepository repository) {

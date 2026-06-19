@@ -12,11 +12,9 @@ import de.htwg.in.schneider.moodify.backend.model.Challenge;
 import de.htwg.in.schneider.moodify.backend.model.Visionboard;
 import de.htwg.in.schneider.moodify.backend.repository.ChallengeRepository;
 import de.htwg.in.schneider.moodify.backend.repository.VisionboardRepository;
-import de.htwg.in.schneider.moodify.backend.repository.VisionboardImagesRepository;
 import de.htwg.in.schneider.moodify.backend.repository.UserRepository;
 import de.htwg.in.schneider.moodify.backend.model.VisionboardImages;
 
-import java.util.List;
 import java.util.Arrays;
 import java.util.Optional;
 import org.slf4j.Logger;
