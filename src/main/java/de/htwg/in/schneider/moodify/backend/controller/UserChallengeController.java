@@ -22,23 +22,37 @@ public class UserChallengeController {
 
     // 🔥 SPEICHERN (User kommt automatisch aus Auth0 Token)
     @PostMapping
-    public UserChallenge save(
-            @RequestBody UserChallenge uc,
-            @AuthenticationPrincipal Jwt jwt
-    ) {
-        String userId = jwt.getClaim("sub");
-        uc.setUserId(userId);
+public UserChallenge save(
+        @RequestBody UserChallenge uc,
+        @AuthenticationPrincipal Jwt jwt
+) {
+    String userId = jwt.getSubject();
 
-        return repository.save(uc);
-    }
+    System.out.println("=== SAVE DEBUG ===");
+    System.out.println("USER ID: " + userId);
+    System.out.println("CHALLENGE ID: " + uc.getChallengeId());
+
+    uc.setUserId(userId);
+
+    UserChallenge saved = repository.save(uc);
+
+    System.out.println("SAVED ID: " + saved.getId());
+
+    return saved;
+}
 
     // 🔥 USER SPECIFIC DATA (/me Endpoint)
-    @GetMapping("/me")
-    public List<UserChallenge> getMyChallenges(
-            @AuthenticationPrincipal Jwt jwt
-    ) {
-        String userId = jwt.getClaim("sub");
+  @GetMapping("/me")
+public List<UserChallenge> getMyChallenges(
+        @AuthenticationPrincipal Jwt jwt
+) {
 
-        return repository.findByUserId(userId);
-    }
+    System.out.println("ME ENDPOINT CALLED");
+
+    String userId = jwt.getSubject();
+
+    System.out.println("USER ID = " + userId);
+
+    return repository.findByUserId(userId);
+}
 }

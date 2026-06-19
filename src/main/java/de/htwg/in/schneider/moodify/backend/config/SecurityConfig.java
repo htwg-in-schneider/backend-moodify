@@ -18,20 +18,30 @@ public class SecurityConfig {
             // 🔥 CORS aktivieren
             .cors(withDefaults())
 
-            // 🔥 CSRF deaktivieren (für REST APIs korrekt)
+            // 🔥 CSRF aus (REST API)
             .csrf(csrf -> csrf.disable())
 
-            // 🔥 Authorization Rules
+            // 🔥 AUTH RULES
             .authorizeHttpRequests(auth -> auth
+
+                // Preflight Requests
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                // Public API (falls du später nutzt)
                 .requestMatchers("/api/public/**").permitAll()
-                .requestMatchers("/api/challenge/**").authenticated()
+
+                // ✅ PUBLIC CHALLENGES (WICHTIG FIX)
+                .requestMatchers("/api/challenge", "/api/challenge/**").permitAll()
+
+                // 🔐 USER DATA (Auth0 geschützt)
                 .requestMatchers("/api/user-challenges/**").authenticated()
                 .requestMatchers("/api/profile").authenticated()
+
+                // alles andere geschützt
                 .anyRequest().authenticated()
             )
 
-            // 🔐 JWT Resource Server (Auth0)
+            // 🔐 JWT (Auth0)
             .oauth2ResourceServer(oauth -> oauth.jwt(withDefaults()));
 
         return http.build();
