@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -22,13 +20,11 @@ import java.util.Optional;
 public class ChallengeController {
 
     private final ChallengeRepository repository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public ChallengeController(ChallengeRepository repository) {
+    public ChallengeController(ChallengeRepository repository, UserRepository userRepository) {
         this.repository = repository;
-        
+        this.userRepository = userRepository;
     }
 
 
