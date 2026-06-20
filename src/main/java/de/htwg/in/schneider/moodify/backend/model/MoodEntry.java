@@ -15,7 +15,6 @@ public class MoodEntry {
     private int score;
     private LocalDate date;
 
-    // ✅ GETTER + SETTER
 
     public Long getId() {
         return id;
@@ -55,5 +54,31 @@ public class MoodEntry {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MoodEntry moodentry = (MoodEntry) o;
+        return id != null && id.equals(moodentry.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+
+        return "User{" +
+            "id=" + id +
+            ", userId='" + userId + '\'' +
+            ", mood='" + mood + '\'' +
+            ", score='" + score + '\'' +
+            ", date=" + date +
+            '}';
     }
 }
