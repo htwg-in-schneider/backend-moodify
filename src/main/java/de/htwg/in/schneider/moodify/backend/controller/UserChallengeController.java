@@ -20,7 +20,7 @@ public class UserChallengeController {
         this.repository = repository;
     }
 
-    // 🔥 SPEICHERN (User kommt automatisch aus Auth0 Token)
+    
     @PostMapping
 public UserChallenge save(
         @RequestBody UserChallenge uc,
@@ -41,7 +41,7 @@ public UserChallenge save(
     return saved;
 }
 
-    // 🔥 USER SPECIFIC DATA (/me Endpoint)
+    
   @GetMapping("/me")
 public List<UserChallenge> getMyChallenges(
         @AuthenticationPrincipal Jwt jwt

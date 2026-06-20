@@ -15,33 +15,36 @@ public class SecurityConfig {
     SecurityFilterChain security(HttpSecurity http) throws Exception {
 
         http
-            // 🔥 CORS aktivieren
+            
             .cors(withDefaults())
 
-            // 🔥 CSRF aus (REST API)
+            
             .csrf(csrf -> csrf.disable())
 
-            // 🔥 AUTH RULES
+            
             .authorizeHttpRequests(auth -> auth
 
-                // Preflight Requests
+                
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/challenge/*").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/api/challenge/*").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/api/challenge/*").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/challenge/*").permitAll()
 
-                // Public API (falls du später nutzt)
+                
                 .requestMatchers("/api/public/**").permitAll()
 
-                // ✅ PUBLIC CHALLENGES (WICHTIG FIX)
+                
                 .requestMatchers("/api/challenge", "/api/challenge/**").permitAll()
 
-                // 🔐 USER DATA (Auth0 geschützt)
+                
                 .requestMatchers("/api/user-challenges/**").authenticated()
                 .requestMatchers("/api/profile").authenticated()
 
-                // alles andere geschützt
+                
                 .anyRequest().authenticated()
             )
 
-            // 🔐 JWT (Auth0)
             .oauth2ResourceServer(oauth -> oauth.jwt(withDefaults()));
 
         return http.build();

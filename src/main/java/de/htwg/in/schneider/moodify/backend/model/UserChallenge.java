@@ -18,22 +18,76 @@ public class UserChallenge {
 
     private String review;
 
-    // getters & setters
+    
 
-    public Long getId() { return id; }
+    public Long getId() { 
+        return id; 
+    }
 
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
+    public String getUserId() { 
+        return userId; 
+    }
 
-    public Long getChallengeId() { return challengeId; }
-    public void setChallengeId(Long challengeId) { this.challengeId = challengeId; }
+    public void setUserId(String userId) { 
+        this.userId = userId; 
+    }
 
-    public boolean isFinished() { return finished; }
-    public void setFinished(boolean finished) { this.finished = finished; }
+    public Long getChallengeId() { 
+        return challengeId; 
+    }
 
-    public String getMood() { return mood; }
-    public void setMood(String mood) { this.mood = mood; }
+    public void setChallengeId(Long challengeId) { 
+        this.challengeId = challengeId; 
+    }
 
-    public String getReview() { return review; }
-    public void setReview(String review) { this.review = review; }
+    public boolean isFinished() { 
+        return finished; 
+    }
+
+    public void setFinished(boolean finished) { 
+        this.finished = finished; 
+    }
+
+    public String getMood() { 
+        return mood; 
+    }
+
+    public void setMood(String mood) { 
+        this.mood = mood; 
+    }
+
+    public String getReview() { 
+        return review; 
+    }
+
+    public void setReview(String review) { 
+        this.review = review; 
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserChallenge userchallenge = (UserChallenge) o;
+        return id != null && id.equals(userchallenge.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+
+        return "UserChallenge{" +
+            "id=" + id +
+            ", userId='" + userId + '\'' +
+            ", challengeId='" + challengeId + '\'' +
+            ", finished='" + finished + '\'' +
+            ", mood='" + mood + '\'' +
+            ", review=" + review +
+            '}';
+    }
 }

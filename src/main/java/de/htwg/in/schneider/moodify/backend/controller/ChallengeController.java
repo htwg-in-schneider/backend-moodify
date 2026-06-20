@@ -2,10 +2,16 @@ package de.htwg.in.schneider.moodify.backend.controller;
 
 import de.htwg.in.schneider.moodify.backend.model.Challenge;
 import de.htwg.in.schneider.moodify.backend.model.Category;
+import de.htwg.in.schneider.moodify.backend.model.User;
+import de.htwg.in.schneider.moodify.backend.model.Role;
 import de.htwg.in.schneider.moodify.backend.repository.ChallengeRepository;
+import de.htwg.in.schneider.moodify.backend.repository.UserRepository;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +23,34 @@ public class ChallengeController {
 
     private final ChallengeRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public ChallengeController(ChallengeRepository repository) {
         this.repository = repository;
+        
     }
 
-    // ✅ GET ALL + FILTER (PUBLIC ODER TOKEN-GESCHÜTZT - je nach Security Config)
+
+    private boolean userFromJwtIsAdmin(Jwt jwt) {
+
+
+     if (jwt == null || jwt.getSubject() == null) {
+        return false;
+     }
+    
+     Optional<User> user = userRepository.findByOauthId(jwt.getSubject());
+
+        if (!user.isPresent() || user.get().getRole() != Role.ADMIN) {
+
+            return false;
+        }
+
+        return true;
+
+    }
+
+    
     @GetMapping
     public List<Challenge> getChallenges(
             @RequestParam(required = false) String title,
@@ -39,7 +68,7 @@ public class ChallengeController {
         }
     }
 
-    // ✅ GET BY ID
+    
     @GetMapping("/{id}")
     public ResponseEntity<Challenge> getChallengeById(@PathVariable Long id) {
 
@@ -49,18 +78,48 @@ public class ChallengeController {
                   .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // ✅ CREATE
-   @PostMapping
-public Challenge createChallenge(@RequestBody Challenge challenge) {
-    return repository.save(challenge);
-}
+    
+    @PostMapping
+    public ResponseEntity<Challenge> createChallenge(@RequestBody Challenge challenge) {
 
-    // ✅ UPDATE
+
+        if (challenge.getid() != null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (challenge.getTitle() == null || challenge.getTitle().isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (challenge.getDescription() == null || challenge.getDescription().isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (challenge.getCategory() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (challenge.getDifficulty() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+
+        Challenge newChallenge = repository.save(challenge);
+        return ResponseEntity.ok(newChallenge);
+    }
+
+    
     @PutMapping("/{id}")
     public ResponseEntity<Challenge> updateChallenge(
+            @AuthenticationPrincipal Jwt jwt,
             @PathVariable Long id,
-            @RequestBody Challenge challengeDetails
-    ) {
+            @RequestBody Challenge challengeDetails) 
+    
+    {
+
+        if (!userFromJwtIsAdmin(jwt)) {
+            return ResponseEntity.status(403).build();
+        }
 
         Optional<Challenge> opt = repository.findById(id);
 
@@ -78,9 +137,13 @@ public Challenge createChallenge(@RequestBody Challenge challenge) {
         return ResponseEntity.ok(repository.save(challenge));
     }
 
-    // ✅ DELETE
+    
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteChallenge(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteChallenge(@AuthenticationPrincipal Jwt jwt, @PathVariable Long id) {
+
+        if (!userFromJwtIsAdmin(jwt)) {
+            return ResponseEntity.status(403).build();
+        }
 
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();

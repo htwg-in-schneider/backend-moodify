@@ -18,6 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
+    private String name;
     private String email;
     private String password;
     private String oauthId;
@@ -30,9 +31,10 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String email, String password,String oauthId, String address, Role role) {
+    public User(Long id, String username, String name, String email, String password,String oauthId, String address, Role role) {
         this.id = id;
         this.username = username;
+        this.name = name;
         this.email = email;
         this.password = password;
         this.oauthId = oauthId;
@@ -64,6 +66,14 @@ public void setAddress(String address) {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
     public String getEmail() {
@@ -118,6 +128,7 @@ public void setAddress(String address) {
         return "User{" +
             "id=" + id +
             ", username='" + username + '\'' +
+            ", name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
             ", oauthId='" + oauthId + '\'' +

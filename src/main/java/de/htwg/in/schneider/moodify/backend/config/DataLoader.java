@@ -10,10 +10,13 @@ import de.htwg.in.schneider.moodify.backend.model.Role;
 import de.htwg.in.schneider.moodify.backend.model.Difficulty;
 import de.htwg.in.schneider.moodify.backend.model.Challenge;
 import de.htwg.in.schneider.moodify.backend.model.Visionboard;
+import de.htwg.in.schneider.moodify.backend.model.Review;
 import de.htwg.in.schneider.moodify.backend.repository.ChallengeRepository;
 import de.htwg.in.schneider.moodify.backend.repository.VisionboardRepository;
 import de.htwg.in.schneider.moodify.backend.repository.UserRepository;
+import de.htwg.in.schneider.moodify.backend.repository.ReviewRepository;
 import de.htwg.in.schneider.moodify.backend.model.VisionboardImages;
+
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -28,7 +31,7 @@ public class DataLoader{
     private static final Logger LOGGER = LoggerFactory.getLogger(DataLoader.class);
 
     @Bean
-    public CommandLineRunner loadData(ChallengeRepository repository, VisionboardRepository visionboardRepository, UserRepository userRepository) {
+    public CommandLineRunner loadData(ChallengeRepository repository, VisionboardRepository visionboardRepository, UserRepository userRepository, ReviewRepository reviewRepository) {
 
         return args -> {
 
@@ -36,14 +39,14 @@ public class DataLoader{
             
             if (repository.count() == 0) { 
                 LOGGER.info("Database is empty. Loading initial data...");
-                loadInitialData(repository, visionboardRepository);
+                loadInitialData(repository, visionboardRepository, reviewRepository);
             } else {
                 LOGGER.info("Database already contains data. Skipping data loading.");
             }
         };
     }
 
-    private void loadInitialData(ChallengeRepository challengeRepository, VisionboardRepository visionboardRepository) {
+    private void loadInitialData(ChallengeRepository challengeRepository, VisionboardRepository visionboardRepository, ReviewRepository reviewRepository) {
 
         Challenge waterChallenge = new Challenge();
         waterChallenge.setTitle("Wasser trinken");
@@ -62,6 +65,27 @@ public class DataLoader{
 
 
         challengeRepository.saveAll(Arrays.asList(waterChallenge, pomodoro));
+
+
+        Review review1 = new Review();
+        review1.setText("Hat mir geholfen, mehr Wasser zu trinken.");
+        review1.setChallenge(waterChallenge);
+
+        Review review2 = new Review();
+        review2.setText("Einfache Challenge für den Alltag.");
+        review2.setChallenge(waterChallenge);
+
+        Review review3 = new Review();
+        review3.setText("Mit der Pomodoro-Technik konnte ich mich besser konzentrieren.");
+        review3.setChallenge(pomodoro);
+
+        Review review4 = new Review();
+        review4.setText("Sehr motivierend und effektiv.");
+        review4.setChallenge(pomodoro);
+
+        reviewRepository.saveAll(Arrays.asList(
+            review1, review2, review3, review4
+        ));
 
 
         Visionboard vs1 = new Visionboard();
@@ -139,16 +163,17 @@ public class DataLoader{
 
     private void loadInitialUsers(UserRepository userRepository) {
 
-        upsertUser(userRepository, "kardln12@icloud.com", "kardln12@icloud.com", "Kardelen2004", "auth0|6a287d49f70895fb97028c48", Role.ADMIN); 
-        upsertUser(userRepository, "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "Karege21", "auth0|6a288b314bd6301a73f57805", Role.USER);
+        upsertUser(userRepository, "kardln12@icloud.com", "kardln12@icloud.com", "kardln12@icloud.com", "Kardelen2004", "auth0|6a287d49f70895fb97028c48", Role.ADMIN); 
+        upsertUser(userRepository, "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "Karege21", "auth0|6a288b314bd6301a73f57805", Role.USER);
         }
 
 
-        private void upsertUser(UserRepository userRepository, String username, String email, String password, String oauthId, Role role) {
+        private void upsertUser(UserRepository userRepository, String username, String name, String email, String password, String oauthId, Role role) {
         Optional<User> existing = userRepository.findByEmail(email);
         if (existing.isPresent()) {
             User u = existing.get();
             u.setUsername(username);
+            u.setName(name);
             u.setEmail(email);
             u.setPassword(password);
             u.setOauthId(oauthId);
@@ -158,6 +183,7 @@ public class DataLoader{
         } else {
             User u1 = new User();
             u1.setUsername(username);
+            u1.setName(name);
             u1.setEmail(email);
             u1.setPassword(password);
             u1.setOauthId(oauthId);

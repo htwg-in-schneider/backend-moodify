@@ -14,7 +14,7 @@ import de.htwg.in.schneider.moodify.backend.repository.UserRepository;
 @RequestMapping("/api/profile")
 public class ProfileController {
 
-        static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
     
     private final UserRepository userRepository;
 
@@ -22,7 +22,7 @@ public class ProfileController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping
+@GetMapping
 public ResponseEntity<User> getProfile(@AuthenticationPrincipal Jwt jwt) {
 
     String oauthId = jwt.getSubject();
@@ -37,4 +37,28 @@ public ResponseEntity<User> getProfile(@AuthenticationPrincipal Jwt jwt) {
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
 }
+
+@PutMapping
+public ResponseEntity<User> updateProfile(
+        @AuthenticationPrincipal Jwt jwt,
+        @RequestBody User userDetails) {
+
+    String oauthId = jwt.getSubject();
+
+    if (oauthId == null) {
+        return ResponseEntity.badRequest().build();
+    }
+
+    return userRepository.findByOauthId(oauthId)
+            .map(user -> {
+                user.setName(userDetails.getName());
+                user.setAddress(userDetails.getAddress());
+                User updatedUser = userRepository.save(user);
+                return ResponseEntity.ok(updatedUser);
+            })
+            .orElse(ResponseEntity.notFound().build());
+}
+
+
+
 }
