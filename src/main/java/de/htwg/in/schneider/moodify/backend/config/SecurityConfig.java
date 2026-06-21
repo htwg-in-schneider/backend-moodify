@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+
 @Configuration
 public class SecurityConfig {
 
@@ -23,6 +25,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/public/**").permitAll()
                 .requestMatchers("/api/affirmations/**").permitAll()
                 .requestMatchers("/api/moodquiz/**").permitAll()
+
+                // Challenges öffentlich lesbar
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/challenge/**").permitAll()
 
                 // AUTH REQUIRED
                 .requestMatchers("/api/profile").authenticated()
