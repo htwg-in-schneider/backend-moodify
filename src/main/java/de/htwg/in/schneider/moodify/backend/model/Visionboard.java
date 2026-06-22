@@ -8,6 +8,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,6 +29,11 @@ public class Visionboard {
 
     @Enumerated(EnumType.STRING)
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"password"})
+    private User user;
     
     @OneToMany(mappedBy = "visionboard", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("visionboard")
@@ -41,6 +48,7 @@ public class Visionboard {
     this.CreatedAt = CreatedAt;
     this.category = category;
     this.images = images;
+    this.user = user;
     }
 
 
@@ -83,6 +91,14 @@ public class Visionboard {
 
     public void setImages(List<VisionboardImages> images) {
         this.images = images;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 

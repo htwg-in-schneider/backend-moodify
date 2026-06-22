@@ -165,7 +165,7 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
         vs1.setCategory(Category.MOTIVATION);
 
         VisionboardImages img1 = new VisionboardImages();
-        img1.setImageUrl("/images/beach.jpg");
+        img1.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-1.avif");
         img1.setXPosition(20);
         img1.setYPosition(40);
         img1.setWidth(200);
@@ -173,7 +173,7 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
         img1.setVisionboard(vs1);
 
         VisionboardImages img2 = new VisionboardImages();
-        img2.setImageUrl("/images/plane.jpg");
+        img2.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-2.avif");
         img2.setXPosition(250);
         img2.setYPosition(80);
         img2.setWidth(180);
@@ -181,7 +181,7 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
         img2.setVisionboard(vs1);
 
         VisionboardImages img3 = new VisionboardImages();
-        img3.setImageUrl("/images/hotel.jpg");
+        img3.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-3.avif");
         img3.setXPosition(120);
         img3.setYPosition(250);
         img3.setWidth(220);
@@ -198,7 +198,7 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
         vs2.setCategory(Category.ABLENKUNG);
 
         VisionboardImages img4 = new VisionboardImages();
-        img4.setImageUrl("/images/future.jpg");
+        img4.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-4.avif");
         img4.setXPosition(20);
         img4.setYPosition(40);
         img4.setWidth(200);
@@ -206,7 +206,7 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
         img4.setVisionboard(vs2);
 
         VisionboardImages img5 = new VisionboardImages();
-        img5.setImageUrl("/images/job.jpg");
+        img5.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-5.avif");
         img5.setXPosition(250);
         img5.setYPosition(80);
         img5.setWidth(180);
@@ -214,7 +214,7 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
         img5.setVisionboard(vs2);
 
         VisionboardImages img6 = new VisionboardImages();
-        img6.setImageUrl("/images/time.jpg");
+        img6.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-6.avif");
         img6.setXPosition(120);
         img6.setYPosition(250);
         img6.setWidth(220);
@@ -226,8 +226,6 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
 
 
         visionboardRepository.saveAll(Arrays.asList(vs1, vs2));
-
-
     
 
     }
