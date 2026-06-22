@@ -36,13 +36,9 @@ public class DataLoader{
         return args -> {
 
             loadInitialUsers(userRepository);
-            
-            if (repository.count() == 0) { 
-                LOGGER.info("Database is empty. Loading initial data...");
-                loadInitialData(repository, visionboardRepository, reviewRepository);
-            } else {
-                LOGGER.info("Database already contains data. Skipping data loading.");
-            }
+
+            LOGGER.info("Loading or updating initial data...");
+            loadInitialData(repository, visionboardRepository, reviewRepository);
         };
     }
 
@@ -63,29 +59,104 @@ public class DataLoader{
         pomodoro.setCategory(Category.MOTIVATION);
         LOGGER.info("Initial data loaded successfully");
 
+  
+        Challenge gratitudeChallenge = new Challenge();
+        gratitudeChallenge.setTitle("Dankbarkeit zeigen");
+        gratitudeChallenge.setDescription("Schreibe heute drei Dinge auf, für die du dankbar bist.");
+        gratitudeChallenge.setDifficulty(Difficulty.EASY);
+        gratitudeChallenge.setCategory(Category.MOTIVATION);
 
-        challengeRepository.saveAll(Arrays.asList(waterChallenge, pomodoro));
+        Challenge walkChallenge = new Challenge();
+        walkChallenge.setTitle("Spaziergang im Freien");
+        walkChallenge.setDescription("Gehe heute mindestens 20 Minuten an der frischen Luft spazieren.");
+        walkChallenge.setDifficulty(Difficulty.EASY);
+        walkChallenge.setCategory(Category.ENTSPANNUNG);
+
+        Challenge breathingChallenge = new Challenge();
+        breathingChallenge.setTitle("Atemübung");
+        breathingChallenge.setDescription("Nimm dir 5 Minuten Zeit für bewusstes Atmen und Entspannen.");
+        breathingChallenge.setDifficulty(Difficulty.EASY);
+        breathingChallenge.setCategory(Category.ENTSPANNUNG);
+
+        Challenge journalChallenge = new Challenge();
+        journalChallenge.setTitle("Tagebuch schreiben");
+        journalChallenge.setDescription("Reflektiere deinen Tag und schreibe mindestens 5 Minuten über deine Gedanken.");
+        journalChallenge.setDifficulty(Difficulty.MITTEL);
+        journalChallenge.setCategory(Category.MOTIVATION);
+
+        Challenge digitalDetox = new Challenge();
+        digitalDetox.setTitle("Digital Detox");
+        digitalDetox.setDescription("Verzichte für eine Stunde komplett auf Social Media.");
+        digitalDetox.setDifficulty(Difficulty.MITTEL);
+        digitalDetox.setCategory(Category.ABLENKUNG);
+
+        Challenge focusChallenge = new Challenge();
+        focusChallenge.setTitle("Fokuszeit");
+        focusChallenge.setDescription("Arbeite 30 Minuten lang konzentriert an einer Aufgabe ohne Unterbrechung.");
+        focusChallenge.setDifficulty(Difficulty.MITTEL);
+        focusChallenge.setCategory(Category.FOKUS);
+
+        Challenge complimentChallenge = new Challenge();
+        complimentChallenge.setTitle("Kompliment machen");
+        complimentChallenge.setDescription("Mache heute einer Person ein ehrliches Kompliment.");
+        complimentChallenge.setDifficulty(Difficulty.EASY);
+        complimentChallenge.setCategory(Category.MOTIVATION);
+
+        Challenge earlySleep = new Challenge();
+        earlySleep.setTitle("Früher schlafen");
+        earlySleep.setDescription("Gehe heute mindestens 30 Minuten früher ins Bett als gewöhnlich.");
+        earlySleep.setDifficulty(Difficulty.MITTEL);
+        earlySleep.setCategory(Category.ENTSPANNUNG);
+
+        Challenge creativeChallenge = new Challenge();
+        creativeChallenge.setTitle("Kreativ werden");
+        creativeChallenge.setDescription("Zeichne, male oder schreibe heute 15 Minuten lang etwas Kreatives.");
+        creativeChallenge.setDifficulty(Difficulty.MITTEL);
+        creativeChallenge.setCategory(Category.MOTIVATION);
+
+        Challenge cleanDesk = new Challenge();
+        cleanDesk.setTitle("Arbeitsplatz aufräumen");
+        cleanDesk.setDescription("Räume deinen Schreibtisch oder einen Bereich deines Zimmers auf.");
+        cleanDesk.setDifficulty(Difficulty.EASY);
+        cleanDesk.setCategory(Category.FOKUS);
 
 
-        Review review1 = new Review();
-        review1.setText("Hat mir geholfen, mehr Wasser zu trinken.");
-        review1.setChallenge(waterChallenge);
+        saveChallengeIfNotExists(challengeRepository, waterChallenge);
+        saveChallengeIfNotExists(challengeRepository, pomodoro);
 
-        Review review2 = new Review();
-        review2.setText("Einfache Challenge für den Alltag.");
-        review2.setChallenge(waterChallenge);
+        saveChallengeIfNotExists(challengeRepository, gratitudeChallenge);
+        saveChallengeIfNotExists(challengeRepository, walkChallenge);
+        saveChallengeIfNotExists(challengeRepository, breathingChallenge);
+        saveChallengeIfNotExists(challengeRepository, journalChallenge);
+        saveChallengeIfNotExists(challengeRepository, digitalDetox);
+        saveChallengeIfNotExists(challengeRepository, focusChallenge);
+        saveChallengeIfNotExists(challengeRepository, complimentChallenge);
+        saveChallengeIfNotExists(challengeRepository, earlySleep);
+        saveChallengeIfNotExists(challengeRepository, creativeChallenge);
+        saveChallengeIfNotExists(challengeRepository, cleanDesk);
 
-        Review review3 = new Review();
-        review3.setText("Mit der Pomodoro-Technik konnte ich mich besser konzentrieren.");
-        review3.setChallenge(pomodoro);
+        
+        Challenge savedWater = challengeRepository.findByTitle("Wasser trinken").get();
+Challenge savedPomodoro = challengeRepository.findByTitle("Pomodoro Fokus").get();
 
-        Review review4 = new Review();
-        review4.setText("Sehr motivierend und effektiv.");
-        review4.setChallenge(pomodoro);
+Review review1 = new Review();
+review1.setText("Hat mir geholfen, mehr Wasser zu trinken.");
+review1.setChallenge(savedWater);
 
-        reviewRepository.saveAll(Arrays.asList(
-            review1, review2, review3, review4
-        ));
+Review review2 = new Review();
+review2.setText("Einfache Challenge für den Alltag.");
+review2.setChallenge(savedWater);
+
+Review review3 = new Review();
+review3.setText("Mit der Pomodoro-Technik konnte ich mich besser konzentrieren.");
+review3.setChallenge(savedPomodoro);
+
+Review review4 = new Review();
+review4.setText("Sehr motivierend und effektiv.");
+review4.setChallenge(savedPomodoro);
+
+reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
+
 
 
         Visionboard vs1 = new Visionboard();
@@ -192,5 +263,12 @@ public class DataLoader{
             LOGGER.info("Created new {} user with email={}", role, email);
         }
     }
+
+
+    private void saveChallengeIfNotExists(ChallengeRepository challengeRepository, Challenge challenge) {
+    if (!challengeRepository.existsByTitle(challenge.getTitle())) {
+        challengeRepository.save(challenge);
+    }
+}
 
 }

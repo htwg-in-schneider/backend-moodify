@@ -11,6 +11,12 @@ public class Affirmation {
 
     private String text;
 
+    public Affirmation() {}
+
+    public Affirmation(String text) {
+        this.text = text;
+    }
+
     public Long getId() {
         return id;
     }
@@ -25,5 +31,28 @@ public class Affirmation {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Affirmation affirmation = (Affirmation) o;
+        return id != null && id.equals(affirmation.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+
+        return "User{" +
+            "id=" + id +
+            ", text=" + text +
+            '}';
     }
 }
