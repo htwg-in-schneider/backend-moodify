@@ -24,6 +24,7 @@ public class MoodQuizController {
 
     @PostMapping
     public MoodQuestion create(@RequestBody MoodQuestion q) {
+        q.setId(null);
         return repo.save(q);
     }
 
@@ -37,6 +38,7 @@ public class MoodQuizController {
         return repo.findById(id)
                 .map(old -> {
                     old.setText(q.getText());
+                    old.setAnswers(q.getAnswers());
                     return repo.save(old);
                 })
                 .orElseThrow();

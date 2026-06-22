@@ -2,6 +2,9 @@ package de.htwg.in.schneider.moodify.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @Entity
 public class MoodQuestion {
 
@@ -11,14 +14,22 @@ public class MoodQuestion {
 
     private String text;
 
+    @ElementCollection
+    private List<String> answers = new ArrayList<>();
+
     public MoodQuestion() {}
 
-    public MoodQuestion(String text) {
+    public MoodQuestion(String text, List<String> answers) {
         this.text = text;
+        this.answers = answers;
     }
 
     public Long getId() { 
         return id; 
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getText() { 
@@ -27,6 +38,14 @@ public class MoodQuestion {
 
     public void setText(String text) { 
         this.text = text; 
+    }
+
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
     }
 
 
