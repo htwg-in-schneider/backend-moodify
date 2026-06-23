@@ -232,12 +232,12 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
 
     private void loadInitialUsers(UserRepository userRepository) {
 
-        upsertUser(userRepository, "kardln12@icloud.com", "kardln12@icloud.com", "kardln12@icloud.com", "Kardelen2004", "auth0|6a287d49f70895fb97028c48", Role.ADMIN); 
-        upsertUser(userRepository, "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "Karege21", "auth0|6a288b314bd6301a73f57805", Role.USER);
+        upsertUser(userRepository, "kardln12@icloud.com", "kardln12@icloud.com", "kardln12@icloud.com", "Kardelen2004", "auth0|6a287d49f70895fb97028c48","78239 Rielasingen", Role.ADMIN); 
+        upsertUser(userRepository, "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "Karege21", "auth0|6a288b314bd6301a73f57805", "78239 Rielasingen", Role.USER);
         }
 
 
-        private void upsertUser(UserRepository userRepository, String username, String name, String email, String password, String oauthId, Role role) {
+        private void upsertUser(UserRepository userRepository, String username, String name, String email, String password, String oauthId, String address, Role role) {
         Optional<User> existing = userRepository.findByEmail(email);
         if (existing.isPresent()) {
             User u = existing.get();
@@ -246,6 +246,7 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
             u.setEmail(email);
             u.setPassword(password);
             u.setOauthId(oauthId);
+            u.setAddress(address);
             u.setRole(role);
             userRepository.save(u);
             LOGGER.info("Updated existing {} user with email={}", role, email);
@@ -256,6 +257,7 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
             u1.setEmail(email);
             u1.setPassword(password);
             u1.setOauthId(oauthId);
+            u1.setAddress(address);
             u1.setRole(role);
             userRepository.save(u1);
             LOGGER.info("Created new {} user with email={}", role, email);

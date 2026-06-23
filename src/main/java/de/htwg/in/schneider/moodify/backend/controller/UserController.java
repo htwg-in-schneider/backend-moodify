@@ -41,6 +41,7 @@ public class UserController {
         user.setUsername(userDetails.getUsername());
         user.setName(userDetails.getName());
         user.setEmail(userDetails.getEmail());
+        user.setAddress(userDetails.getAddress());
         user.setRole(userDetails.getRole());
 
         User updatedUser = repository.save(user);
