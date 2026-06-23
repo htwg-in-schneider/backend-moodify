@@ -2,7 +2,15 @@ package de.htwg.in.schneider.moodify.backend.controller;
 
 import de.htwg.in.schneider.moodify.backend.model.MoodQuestion;
 import de.htwg.in.schneider.moodify.backend.repository.MoodQuestionRepository;
+import de.htwg.in.schneider.moodify.backend.model.User;
+import de.htwg.in.schneider.moodify.backend.repository.UserRepository;
+import de.htwg.in.schneider.moodify.backend.model.Role;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
+import java.util.Optional;
 
 import java.util.List;
 
@@ -13,8 +21,11 @@ public class MoodQuizController {
 
     private final MoodQuestionRepository repo;
 
-    public MoodQuizController(MoodQuestionRepository repo) {
+    private final UserRepository userRepository;
+
+    public MoodQuizController(MoodQuestionRepository repo, UserRepository userRepository) {
         this.repo = repo;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -22,25 +33,60 @@ public class MoodQuizController {
         return repo.findAll();
     }
 
+        private boolean userFromJwtIsAdmin(Jwt jwt) {
+
+
+     if (jwt == null || jwt.getSubject() == null) {
+        return false;
+     }
+    
+     Optional<User> user = userRepository.findByOauthId(jwt.getSubject());
+
+        if (!user.isPresent() || user.get().getRole() != Role.ADMIN) {
+
+            return false;
+        }
+
+        return true;
+
+    }
+
     @PostMapping
-    public MoodQuestion create(@RequestBody MoodQuestion q) {
+    public ResponseEntity<MoodQuestion> create(@RequestBody MoodQuestion q, @AuthenticationPrincipal Jwt jwt) {
+
+
+        if (!userFromJwtIsAdmin(jwt)) {
+            return ResponseEntity.status(403).build();
+        }
+
         q.setId(null);
-        return repo.save(q);
+        return ResponseEntity.ok(repo.save(q));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id, @AuthenticationPrincipal Jwt jwt) {
+
+        if (!userFromJwtIsAdmin(jwt)) {
+            return ResponseEntity.status(403).build();
+        }
+
         repo.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public MoodQuestion update(@PathVariable Long id, @RequestBody MoodQuestion q) {
+    public ResponseEntity<MoodQuestion> update(@PathVariable Long id, @RequestBody MoodQuestion q, @AuthenticationPrincipal Jwt jwt) {
+
+        if (!userFromJwtIsAdmin(jwt)) {
+            return ResponseEntity.status(403).build();
+        }
+        
         return repo.findById(id)
                 .map(old -> {
                     old.setText(q.getText());
                     old.setAnswers(q.getAnswers());
-                    return repo.save(old);
+                    return ResponseEntity.ok(repo.save(old));
                 })
-                .orElseThrow();
+                .orElse(ResponseEntity.notFound().build());
     }
 }

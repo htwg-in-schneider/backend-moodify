@@ -21,19 +21,28 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
-                // PUBLIC APIs
                 .requestMatchers("/api/public/**").permitAll()
-                .requestMatchers("/api/affirmations/**").permitAll()
-                .requestMatchers("/api/moodquiz/**").permitAll()
-
-                // Challenges öffentlich lesbar
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/moodquiz/**").permitAll()
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/challenge/**").permitAll()
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/affirmations/**").permitAll()
+                .requestMatchers("/api/profile/**").authenticated()
+                .requestMatchers("/api/users/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/challenge/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/challenge/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/challenge/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/affirmations/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/affirmations/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/affirmations/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/moodquiz/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/moodquiz/**").authenticated()
+                .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/moodquiz/**").authenticated()
+                .requestMatchers("/api/mood/**").authenticated()
+                .requestMatchers("/api/visionboard/**").authenticated()
+                .requestMatchers("/api/image/**").authenticated()
 
-                // AUTH REQUIRED
-                .requestMatchers("/api/profile").authenticated()
+    
+    .anyRequest().authenticated()
 
-                // EVERYTHING ELSE
-                .anyRequest().authenticated()
             )
 
             .oauth2ResourceServer(oauth -> oauth.jwt(withDefaults()));

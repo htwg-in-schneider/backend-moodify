@@ -2,10 +2,13 @@ package de.htwg.in.schneider.moodify.backend.controller;
 
 import de.htwg.in.schneider.moodify.backend.model.UserChallenge;
 import de.htwg.in.schneider.moodify.backend.repository.UserChallengeRepository;
-
+import de.htwg.in.schneider.moodify.backend.model.User;
+import de.htwg.in.schneider.moodify.backend.repository.UserRepository;
+import de.htwg.in.schneider.moodify.backend.model.Role;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 import java.util.List;
 
@@ -16,13 +19,34 @@ public class UserChallengeController {
 
     private final UserChallengeRepository repository;
 
-    public UserChallengeController(UserChallengeRepository repository) {
+    private final UserRepository userRepository;
+
+    public UserChallengeController(UserChallengeRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userRepository = userRepository;
+    }
+
+    private boolean userFromJwtIsAdmin(Jwt jwt) {
+
+
+     if (jwt == null || jwt.getSubject() == null) {
+        return false;
+     }
+    
+     Optional<User> user = userRepository.findByOauthId(jwt.getSubject());
+
+        if (!user.isPresent() || user.get().getRole() != Role.ADMIN) {
+
+            return false;
+        }
+
+        return true;
+
     }
 
     
     @PostMapping
-public UserChallenge save(
+    public UserChallenge save(
         @RequestBody UserChallenge uc,
         @AuthenticationPrincipal Jwt jwt
 ) {
