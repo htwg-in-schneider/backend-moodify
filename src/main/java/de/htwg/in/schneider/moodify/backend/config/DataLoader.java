@@ -147,7 +147,7 @@ public class DataLoader{
        Challenge savedPomodoro = challengeRepository.findByTitle("Pomodoro Fokus").get();
 
 
-       affirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Ich bin stärker, als ich denke."
 ));
 
@@ -163,7 +163,7 @@ affirmationRepository.save(new Affirmation(
     "Mein Wohlbefinden ist wichtig."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Ich kann Herausforderungen meistern."
 ));
 
