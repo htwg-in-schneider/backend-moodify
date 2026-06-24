@@ -50,6 +50,10 @@ public class VisionboardImagesController {
         VisionboardImages image = opt.get();
 
         image.setImageUrl(imageDetails.getImageUrl());
+        image.setXPosition(imageDetails.getXPosition());
+        image.setYPosition(imageDetails.getYPosition());
+        image.setWidth(imageDetails.getWidth());
+        image.setHeight(imageDetails.getHeight());
         image.setVisionboard(imageDetails.getVisionboard());
 
         VisionboardImages updatedImage = repository.save(image);

@@ -15,6 +15,11 @@ public class VisionboardImages {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private int xPosition;
+    private int yPosition;
+    private int width;
+    private int height;
+
     private String imageUrl;
 
     @ManyToOne
@@ -42,6 +47,37 @@ public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
 }
 
+public int getXPosition() {
+    return xPosition;
+}
+
+public void setXPosition(int xPosition) {
+    this.xPosition = xPosition;
+}
+
+public int getYPosition() {
+    return yPosition;
+}
+
+public void setYPosition(int yPosition) {
+    this.yPosition = yPosition;
+}
+
+public int getWidth() {
+    return width;
+}
+
+public int getHeight() {
+    return height;
+}
+
+public void setHeight(int height) {
+    this.height = height;
+}
+
+public void setWidth(int width) {
+    this.width = width;
+}
 
 public Visionboard getVisionboard() {
     return visionboard;
@@ -51,19 +87,5 @@ public void setVisionboard(Visionboard visionboard) {
     this.visionboard = visionboard;
 }
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-
-    return "Visionboard{" +
-            "id=" + id +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", visionboard=" + visionboard +
-            '}';
-    }
   
 }
