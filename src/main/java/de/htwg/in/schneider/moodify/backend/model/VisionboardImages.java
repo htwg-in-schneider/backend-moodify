@@ -65,16 +65,18 @@ public void setVisionboard(Visionboard visionboard) {
         return ID != null ? id.hashCode() : 0;
     }
 
-
-@Override
-public String toString() {
+    @Override
+    public String toString() {
 
     return "Visionboard{" +
             "id=" + id +
-            ", imageURL='" + imageURL + '\'' +
+            ", imageUrl='" + imageUrl + '\'' +
             ", visionboard=" + visionboard +
             '}';
-}
+    }
+
+
+
 
     
 }
