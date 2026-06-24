@@ -146,140 +146,8 @@ public class DataLoader{
         Challenge savedWater = challengeRepository.findByTitle("Wasser trinken").get();
        Challenge savedPomodoro = challengeRepository.findByTitle("Pomodoro Fokus").get();
 
-Review review1 = new Review();
-review1.setText("Hat mir geholfen, mehr Wasser zu trinken.");
-review1.setChallenge(savedWater);
 
-Review review2 = new Review();
-review2.setText("Einfache Challenge für den Alltag.");
-review2.setChallenge(savedWater);
-
-Review review3 = new Review();
-review3.setText("Mit der Pomodoro-Technik konnte ich mich besser konzentrieren.");
-review3.setChallenge(savedPomodoro);
-
-Review review4 = new Review();
-review4.setText("Sehr motivierend und effektiv.");
-review4.setChallenge(savedPomodoro);
-
-reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
-
-
-
-        Visionboard vs1 = new Visionboard();
-        vs1.setTitle("Reise2026");
-        vs1.setCreatedAt(LocalDateTime.now());
-        vs1.setCategory(Category.MOTIVATION);
-
-        VisionboardImages img1 = new VisionboardImages();
-        img1.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-1.avif");
-        img1.setXPosition(20);
-        img1.setYPosition(40);
-        img1.setWidth(200);
-        img1.setHeight(150);
-        img1.setVisionboard(vs1);
-
-        VisionboardImages img2 = new VisionboardImages();
-        img2.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-2.avif");
-        img2.setXPosition(250);
-        img2.setYPosition(80);
-        img2.setWidth(180);
-        img2.setHeight(120);
-        img2.setVisionboard(vs1);
-
-        VisionboardImages img3 = new VisionboardImages();
-        img3.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-3.avif");
-        img3.setXPosition(120);
-        img3.setYPosition(250);
-        img3.setWidth(220);
-        img3.setHeight(160);
-        img3.setVisionboard(vs1);
-
-        vs1.setImages(Arrays.asList(img1, img2, img3));
-        LOGGER.info("Initial data loaded successfully");
-
-
-        Visionboard vs2 = new Visionboard();
-        vs2.setTitle("Ziele2026");
-        vs2.setCreatedAt(LocalDateTime.now());
-        vs2.setCategory(Category.ABLENKUNG);
-
-        VisionboardImages img4 = new VisionboardImages();
-        img4.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-4.avif");
-        img4.setXPosition(20);
-        img4.setYPosition(40);
-        img4.setWidth(200);
-        img4.setHeight(150);
-        img4.setVisionboard(vs2);
-
-        VisionboardImages img5 = new VisionboardImages();
-        img5.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-5.avif");
-        img5.setXPosition(250);
-        img5.setYPosition(80);
-        img5.setWidth(180);
-        img5.setHeight(120);
-        img5.setVisionboard(vs2);
-
-        VisionboardImages img6 = new VisionboardImages();
-        img6.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-6.avif");
-        img6.setXPosition(120);
-        img6.setYPosition(250);
-        img6.setWidth(220);
-        img6.setHeight(160);
-        img6.setVisionboard(vs2);
-
-        vs2.setImages(Arrays.asList(img4, img5, img6));
-        LOGGER.info("Initial data loaded successfully");
-
-
-        visionboardRepository.saveAll(Arrays.asList(vs1, vs2));
-    
-
-    }
-
-    private void loadInitialUsers(UserRepository userRepository) {
-
-        upsertUser(userRepository, "kardln12@icloud.com", "kardln12@icloud.com", "kardln12@icloud.com", "Kardelen2004", "auth0|6a287d49f70895fb97028c48","78239 Rielasingen", Role.ADMIN); 
-        upsertUser(userRepository, "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "Karege21", "auth0|6a288b314bd6301a73f57805", "78239 Rielasingen", Role.USER);
-        }
-
-
-        private void upsertUser(UserRepository userRepository, String username, String name, String email, String password, String oauthId, String address, Role role) {
-        Optional<User> existing = userRepository.findByEmail(email);
-        if (existing.isPresent()) {
-            User u = existing.get();
-            u.setUsername(username);
-            u.setName(name);
-            u.setEmail(email);
-            u.setPassword(password);
-            u.setOauthId(oauthId);
-            u.setAddress(address);
-            u.setRole(role);
-            userRepository.save(u);
-            LOGGER.info("Updated existing {} user with email={}", role, email);
-        } else {
-            User u1 = new User();
-            u1.setUsername(username);
-            u1.setName(name);
-            u1.setEmail(email);
-            u1.setPassword(password);
-            u1.setOauthId(oauthId);
-            u1.setAddress(address);
-            u1.setRole(role);
-            userRepository.save(u1);
-            LOGGER.info("Created new {} user with email={}", role, email);
-        }
-    }
-
-
-    private void saveChallengeIfNotExists(ChallengeRepository challengeRepository, Challenge challenge) {
-    if (!challengeRepository.existsByTitle(challenge.getTitle())) {
-        challengeRepository.save(challenge);
-    }
-
-    }
-
-affirmationRepository.save(new Affirmation(
+       affirmationRepository.save(new Affirmation(
     "Ich bin stärker, als ich denke."
 ));
 
@@ -412,5 +280,138 @@ moodQuestionRepository.save(
         )
     )
 );
+
+Review review1 = new Review();
+review1.setText("Hat mir geholfen, mehr Wasser zu trinken.");
+review1.setChallenge(savedWater);
+
+Review review2 = new Review();
+review2.setText("Einfache Challenge für den Alltag.");
+review2.setChallenge(savedWater);
+
+Review review3 = new Review();
+review3.setText("Mit der Pomodoro-Technik konnte ich mich besser konzentrieren.");
+review3.setChallenge(savedPomodoro);
+
+Review review4 = new Review();
+review4.setText("Sehr motivierend und effektiv.");
+review4.setChallenge(savedPomodoro);
+
+reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
+
+
+
+        Visionboard vs1 = new Visionboard();
+        vs1.setTitle("Reise2026");
+        vs1.setCreatedAt(LocalDateTime.now());
+        vs1.setCategory(Category.MOTIVATION);
+
+        VisionboardImages img1 = new VisionboardImages();
+        img1.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-1.avif");
+        img1.setXPosition(20);
+        img1.setYPosition(40);
+        img1.setWidth(200);
+        img1.setHeight(150);
+        img1.setVisionboard(vs1);
+
+        VisionboardImages img2 = new VisionboardImages();
+        img2.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-2.avif");
+        img2.setXPosition(250);
+        img2.setYPosition(80);
+        img2.setWidth(180);
+        img2.setHeight(120);
+        img2.setVisionboard(vs1);
+
+        VisionboardImages img3 = new VisionboardImages();
+        img3.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-3.avif");
+        img3.setXPosition(120);
+        img3.setYPosition(250);
+        img3.setWidth(220);
+        img3.setHeight(160);
+        img3.setVisionboard(vs1);
+
+        vs1.setImages(Arrays.asList(img1, img2, img3));
+        LOGGER.info("Initial data loaded successfully");
+
+
+        Visionboard vs2 = new Visionboard();
+        vs2.setTitle("Ziele2026");
+        vs2.setCreatedAt(LocalDateTime.now());
+        vs2.setCategory(Category.ABLENKUNG);
+
+        VisionboardImages img4 = new VisionboardImages();
+        img4.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-4.avif");
+        img4.setXPosition(20);
+        img4.setYPosition(40);
+        img4.setWidth(200);
+        img4.setHeight(150);
+        img4.setVisionboard(vs2);
+
+        VisionboardImages img5 = new VisionboardImages();
+        img5.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-5.avif");
+        img5.setXPosition(250);
+        img5.setYPosition(80);
+        img5.setWidth(180);
+        img5.setHeight(120);
+        img5.setVisionboard(vs2);
+
+        VisionboardImages img6 = new VisionboardImages();
+        img6.setImageUrl("https://htwg-in-schneider.github.io/frontend-static-moodify-2/visionboard/images-6.avif");
+        img6.setXPosition(120);
+        img6.setYPosition(250);
+        img6.setWidth(220);
+        img6.setHeight(160);
+        img6.setVisionboard(vs2);
+
+        vs2.setImages(Arrays.asList(img4, img5, img6));
+        LOGGER.info("Initial data loaded successfully");
+
+
+        visionboardRepository.saveAll(Arrays.asList(vs1, vs2));
+    
+
+    }
+
+    private void loadInitialUsers(UserRepository userRepository) {
+
+        upsertUser(userRepository, "kardln12@icloud.com", "kardln12@icloud.com", "kardln12@icloud.com", "Kardelen2004", "auth0|6a287d49f70895fb97028c48","78239 Rielasingen", Role.ADMIN); 
+        upsertUser(userRepository, "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "kardelenkantar49@gmail.com", "Karege21", "auth0|6a288b314bd6301a73f57805", "78239 Rielasingen", Role.USER);
+        }
+
+
+        private void upsertUser(UserRepository userRepository, String username, String name, String email, String password, String oauthId, String address, Role role) {
+        Optional<User> existing = userRepository.findByEmail(email);
+        if (existing.isPresent()) {
+            User u = existing.get();
+            u.setUsername(username);
+            u.setName(name);
+            u.setEmail(email);
+            u.setPassword(password);
+            u.setOauthId(oauthId);
+            u.setAddress(address);
+            u.setRole(role);
+            userRepository.save(u);
+            LOGGER.info("Updated existing {} user with email={}", role, email);
+        } else {
+            User u1 = new User();
+            u1.setUsername(username);
+            u1.setName(name);
+            u1.setEmail(email);
+            u1.setPassword(password);
+            u1.setOauthId(oauthId);
+            u1.setAddress(address);
+            u1.setRole(role);
+            userRepository.save(u1);
+            LOGGER.info("Created new {} user with email={}", role, email);
+        }
+    }
+
+
+    private void saveChallengeIfNotExists(ChallengeRepository challengeRepository, Challenge challenge) {
+    if (!challengeRepository.existsByTitle(challenge.getTitle())) {
+        challengeRepository.save(challenge);
+    }
+
+    }
 
 }
