@@ -57,12 +57,12 @@ public void setVisionboard(Visionboard visionboard) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VisionboardImages visionboardIMages = (VisionboardImages) o;
-        return ID != null && id.equals(visionboard.id);
+        return id != null && id.equals(visionboard.id);
     }
 
     @Override
     public int hashCode() {
-        return ID != null ? id.hashCode() : 0;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
@@ -74,9 +74,5 @@ public void setVisionboard(Visionboard visionboard) {
             ", visionboard=" + visionboard +
             '}';
     }
-
-
-
-
-    
+  
 }
