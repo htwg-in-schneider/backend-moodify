@@ -27,6 +27,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Configuration
@@ -35,7 +36,8 @@ public class DataLoader{
     private static final Logger LOGGER = LoggerFactory.getLogger(DataLoader.class);
 
     @Bean
-    public CommandLineRunner loadData(ChallengeRepository repository, VisionboardRepository visionboardRepository, UserRepository userRepository, ReviewRepository reviewRepository) {
+    public CommandLineRunner loadData(ChallengeRepository repository, VisionboardRepository visionboardRepository, 
+    UserRepository userRepository, ReviewRepository reviewRepository, AffirmationRepository affirmationRepository, MoodQuestionRepository moodQuestionRepository) {
 
         return args -> {
 
@@ -46,7 +48,8 @@ public class DataLoader{
         };
     }
 
-    private void loadInitialData(ChallengeRepository challengeRepository, VisionboardRepository visionboardRepository, ReviewRepository reviewRepository) {
+    private void loadInitialData(ChallengeRepository challengeRepository, VisionboardRepository visionboardRepository, ReviewRepository reviewRepository, 
+    AffirmationRepository affirmationRepository, MoodQuestionRepository moodQuestionRepository) {
 
         Challenge waterChallenge = new Challenge();
         waterChallenge.setTitle("Wasser trinken");
@@ -141,7 +144,7 @@ public class DataLoader{
 
         
         Challenge savedWater = challengeRepository.findByTitle("Wasser trinken").get();
-Challenge savedPomodoro = challengeRepository.findByTitle("Pomodoro Fokus").get();
+       Challenge savedPomodoro = challengeRepository.findByTitle("Pomodoro Fokus").get();
 
 Review review1 = new Review();
 review1.setText("Hat mir geholfen, mehr Wasser zu trinken.");
@@ -275,19 +278,19 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
     }
 
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Ich bin stärker, als ich denke."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Heute fokussiere ich mich auf das Positive."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Ich vertraue auf meine Fähigkeiten."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Mein Wohlbefinden ist wichtig."
 ));
 
@@ -295,15 +298,15 @@ AffirmationRepository.save(new Affirmation(
     "Ich kann Herausforderungen meistern."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Ich bin genug, so wie ich bin."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Jeder Tag bietet neue Chancen."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Ich gehe freundlich mit mir selbst um."
 ));
 
@@ -311,19 +314,19 @@ affirmationRepository.save(new Affirmation(
     "Meine Gedanken beeinflussen meine Realität positiv."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Ich darf stolz auf meine Fortschritte sein."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Heute entscheide ich mich für Gelassenheit."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Ich wachse mit jeder Erfahrung."
 ));
 
-AffirmationRepository.save(new Affirmation(
+affirmationRepository.save(new Affirmation(
     "Ich habe die Kraft, meine Ziele zu erreichen."
 ));
 
@@ -344,11 +347,11 @@ List.of(
     "Ich wachse mit jeder Erfahrung.",
     "Ich habe die Kraft, meine Ziele zu erreichen."
 ).forEach(text ->
-    AffirmationRepository.save(new Affirmation(text))
+    affirmationRepository.save(new Affirmation(text))
 );
 
 
-MoodQuestionRepository.save(
+moodQuestionRepository.save(
     new MoodQuestion(
         "Wie fühlst du dich heute?",
         List.of(
@@ -361,7 +364,7 @@ MoodQuestionRepository.save(
     )
 );
 
-MoodQuestionRepository.save(
+moodQuestionRepository.save(
     new MoodQuestion(
         "Wie war dein Energielevel heute?",
         List.of(
@@ -373,7 +376,7 @@ MoodQuestionRepository.save(
     )
 );
 
-MoodQuestionRepository.save(
+moodQuestionRepository.save(
     new MoodQuestion(
         "Wie gut hast du geschlafen?",
         List.of(
@@ -385,7 +388,7 @@ MoodQuestionRepository.save(
     )
 );
 
-MoodQuestionRepository.save(
+moodQuestionRepository.save(
     new MoodQuestion(
         "Wie stressig war dein Tag?",
         List.of(
@@ -397,7 +400,7 @@ MoodQuestionRepository.save(
     )
 );
 
-MoodQuestionRepository.save(
+moodQuestionRepository.save(
     new MoodQuestion(
         "Wie zufrieden bist du heute mit dir selbst?",
         List.of(
