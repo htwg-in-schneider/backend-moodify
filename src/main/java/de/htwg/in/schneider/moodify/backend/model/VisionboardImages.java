@@ -16,10 +16,6 @@ public class VisionboardImages {
     private Long id;
 
     private String imageUrl;
-    private int xPosition;
-    private int yPosition;
-    private int width;
-    private int height;
 
     @ManyToOne
     @JoinColumn(name = "visionboard_id")
@@ -46,37 +42,6 @@ public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
 }
 
-public int getXPosition() {
-    return xPosition;
-}
-
-public void setXPosition(int xPosition) {
-    this.xPosition = xPosition;
-}
-
-public int getYPosition() {
-    return yPosition;
-}
-
-public void setYPosition(int yPosition) {
-    this.yPosition = yPosition;
-}
-
-public int getWidth() {
-    return width;
-}
-
-public void setWidth(int width) {
-    this.width = width;
-}
-
-public int getHeight() {
-    return height;
-}
-
-public void setHeight(int height) {
-    this.height = height;
-}
 
 public Visionboard getVisionboard() {
     return visionboard;
@@ -84,6 +49,31 @@ public Visionboard getVisionboard() {
 
 public void setVisionboard(Visionboard visionboard) {
     this.visionboard = visionboard;
+}
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VisionboardImages visionboardIMages = (VisionboardImages) o;
+        return ID != null && id.equals(visionboard.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return ID != null ? id.hashCode() : 0;
+    }
+
+
+@Override
+public String toString() {
+
+    return "Visionboard{" +
+            "id=" + id +
+            ", imageURL='" + imageURL + '\'' +
+            ", visionboard=" + visionboard +
+            '}';
 }
 
     
