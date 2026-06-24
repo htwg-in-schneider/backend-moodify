@@ -16,6 +16,10 @@ import de.htwg.in.schneider.moodify.backend.repository.VisionboardRepository;
 import de.htwg.in.schneider.moodify.backend.repository.UserRepository;
 import de.htwg.in.schneider.moodify.backend.repository.ReviewRepository;
 import de.htwg.in.schneider.moodify.backend.model.VisionboardImages;
+import de.htwg.in.schneider.moodify.backend.repository.AffirmationRepository;
+import de.htwg.in.schneider.moodify.backend.model.Affirmation;
+import de.htwg.in.schneider.moodify.backend.repository.MoodQuestionRepository;
+import de.htwg.in.schneider.moodify.backend.model.MoodQuestion;
 
 
 import java.util.Arrays;
@@ -269,6 +273,144 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
     if (!challengeRepository.existsByTitle(challenge.getTitle())) {
         challengeRepository.save(challenge);
     }
+
+
+AffirmationRepository.save(new Affirmation(
+    "Ich bin stärker, als ich denke."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Heute fokussiere ich mich auf das Positive."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Ich vertraue auf meine Fähigkeiten."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Mein Wohlbefinden ist wichtig."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Ich kann Herausforderungen meistern."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Ich bin genug, so wie ich bin."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Jeder Tag bietet neue Chancen."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Ich gehe freundlich mit mir selbst um."
+));
+
+affirmationRepository.save(new Affirmation(
+    "Meine Gedanken beeinflussen meine Realität positiv."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Ich darf stolz auf meine Fortschritte sein."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Heute entscheide ich mich für Gelassenheit."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Ich wachse mit jeder Erfahrung."
+));
+
+AffirmationRepository.save(new Affirmation(
+    "Ich habe die Kraft, meine Ziele zu erreichen."
+));
+
+List.of(
+    "Ich bin stärker, als ich denke.",
+    "Jeder kleine Schritt bringt mich weiter.",
+    "Ich darf Fehler machen und daraus lernen.",
+    "Heute fokussiere ich mich auf das Positive.",
+    "Ich vertraue auf meine Fähigkeiten.",
+    "Mein Wohlbefinden ist wichtig.",
+    "Ich kann Herausforderungen meistern.",
+    "Ich bin genug, so wie ich bin.",
+    "Jeder Tag bietet neue Chancen.",
+    "Ich gehe freundlich mit mir selbst um.",
+    "Meine Gedanken beeinflussen meine Realität positiv.",
+    "Ich darf stolz auf meine Fortschritte sein.",
+    "Heute entscheide ich mich für Gelassenheit.",
+    "Ich wachse mit jeder Erfahrung.",
+    "Ich habe die Kraft, meine Ziele zu erreichen."
+).forEach(text ->
+    AffirmationRepository.save(new Affirmation(text))
+);
+
+
+MoodQuestionRepository.save(
+    new MoodQuestion(
+        "Wie fühlst du dich heute?",
+        List.of(
+            "😊 Glücklich",
+            "😌 Entspannt",
+            "😐 Neutral",
+            "😔 Traurig",
+            "😡 Gestresst"
+        )
+    )
+);
+
+MoodQuestionRepository.save(
+    new MoodQuestion(
+        "Wie war dein Energielevel heute?",
+        List.of(
+            "🔋 Sehr hoch",
+            "⚡ Hoch",
+            "🙂 Mittel",
+            "😴 Niedrig"
+        )
+    )
+);
+
+MoodQuestionRepository.save(
+    new MoodQuestion(
+        "Wie gut hast du geschlafen?",
+        List.of(
+            "🌙 Sehr gut",
+            "🙂 Gut",
+            "😐 Geht so",
+            "😴 Schlecht"
+        )
+    )
+);
+
+MoodQuestionRepository.save(
+    new MoodQuestion(
+        "Wie stressig war dein Tag?",
+        List.of(
+            "😌 Gar nicht",
+            "🙂 Wenig",
+            "😐 Mittel",
+            "😣 Sehr stressig"
+        )
+    )
+);
+
+MoodQuestionRepository.save(
+    new MoodQuestion(
+        "Wie zufrieden bist du heute mit dir selbst?",
+        List.of(
+            "🌟 Sehr zufrieden",
+            "😊 Zufrieden",
+            "😐 Neutral",
+            "😔 Unzufrieden"
+        )
+    )
+);
+
+
+
 }
 
 }
