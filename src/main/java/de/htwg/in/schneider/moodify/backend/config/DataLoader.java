@@ -44,7 +44,7 @@ public class DataLoader{
             loadInitialUsers(userRepository);
 
             LOGGER.info("Loading or updating initial data...");
-            loadInitialData(repository, visionboardRepository, reviewRepository);
+            loadInitialData(repository, visionboardRepository, reviewRepository, affirmationRepository, moodQuestionRepository);
         };
     }
 
@@ -277,6 +277,7 @@ reviewRepository.saveAll(Arrays.asList(review1, review2, review3, review4));
         challengeRepository.save(challenge);
     }
 
+    }
 
 affirmationRepository.save(new Affirmation(
     "Ich bin stärker, als ich denke."
@@ -411,9 +412,5 @@ moodQuestionRepository.save(
         )
     )
 );
-
-
-
-}
 
 }
